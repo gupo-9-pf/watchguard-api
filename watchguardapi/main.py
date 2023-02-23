@@ -13,5 +13,7 @@ async def get_endpoint(mode: str, source_latitude: float,source_longitude: float
                    gender, hour, day, month)
     response = route.get_response()
     #print(route_cross_cat(route.get_shape(response.json())))
-    print(route_cross_upz(route.get_shape(response.json()), mode, gender, hour))
+    res = route_cross_upz(route.get_shape(response.json()), mode, gender, hour)
+    for index, value in enumerate(res):
+        print(f'🔥 {index} - {value}\n')
     return route.get_response().json()
