@@ -31,18 +31,11 @@ def route_cross_upz(routes: list, mode, gender, hour):
     for route in routes:
         str_wkt = wkt.dumps(route)
         if mode == 'car' and gender == 'male' and hour == 'morning':
-            # results.append(
-            #     session
-            #     .query(Upz.CMIUUPLA,Upz.CMNOMUPLA)
-            #     .filter(func.ST_Crosses(Upz.geometry,func.ST_SetSRID(func.ST_GeomFromText(str_wkt), 4326)))
-            #     .all()
-            # )
             results.append(
-                session.execute(
-                    select([Upz.CMNOMUPLA, UpzCrimePercentages.morning_car_m])
-                    .select_from(session.query(Upz, UpzCrimePercentages).join(UpzCrimePercentages, Upz.CMIUUPLA == UpzCrimePercentages.index))
-                    .where(functions.ST_Crosses(Upz.geometry,functions.ST_SetSRID(func.ST_GeomFromText(str_wkt), 4326)))
-                )
+                session
+                .query(Upz.CMIUUPLA,Upz.CMNOMUPLA, UpzCrimePercentages.morning_car_m)
+                .join(Upz, Upz.CMIUUPLA == UpzCrimePercentages.index)
+                .filter(func.ST_Crosses(Upz.geometry,func.ST_SetSRID(func.ST_GeomFromText(str_wkt), 4326)))
                 .all()
             )
     return results
