@@ -1,4 +1,4 @@
-from src.route.models import Route
+from src.models.route import Route
 from src.riskmodel.routecrosses import route_cross_upz
 
 from fastapi import APIRouter

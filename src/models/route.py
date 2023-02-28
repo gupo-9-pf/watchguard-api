@@ -3,7 +3,6 @@ from dataclasses import dataclass
 from requests import Response
 from shapely.geometry import LineString
 
-
 @dataclass
 class Route:
     mode: str
