@@ -1,5 +1,3 @@
-import uvicorn
-
 from src.route import routes as route_routes
 
 from fastapi import FastAPI
