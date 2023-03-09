@@ -1,7 +1,6 @@
 from src.database.base import Base
 
-from geoalchemy2 import Geometry
-from sqlalchemy import Column, Float, String, Integer
+from sqlalchemy import Column, Float, String
 
 class UpzCrimePercentages(Base):
     __tablename__ = 'order_crime_upz_perc'
