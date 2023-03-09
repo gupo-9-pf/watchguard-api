@@ -1,18 +1,11 @@
-from sqlalchemy import create_engine, func
-from base.catastralparcel import CatastralParcel
-from base.upz import Upz
-from models.route import Route
-from base.upzcrimeper import UpzCrimePercentages
+from src.database.session import session
+from src.riskmodel.models.upz import Upz
+from src.riskmodel.models.catastralparcel import CatastralParcel
+from src.riskmodel.models.upzcrimeperc import UpzCrimePercentages
 
 from shapely import wkt
-from sqlalchemy.sql.expression import select
-from sqlalchemy.orm import sessionmaker
-from geoalchemy2 import functions
-
-engine = create_engine('postgresql://postgres:melo@localhost:5432/postgres')
-Session = sessionmaker(bind=engine)
-session = Session()
-
+from shapely.geometry import LineString
+from sqlalchemy import func
 
 def route_cross_cat(routes: list):
     results = []
@@ -26,7 +19,7 @@ def route_cross_cat(routes: list):
         )
     return results
 
-def route_cross_upz(routes: list, mode, gender, hour):
+def route_cross_upz(routes: list[LineString], mode: str, gender: str, hour: str):
     results = []
     for route in routes:
         str_wkt = wkt.dumps(route)

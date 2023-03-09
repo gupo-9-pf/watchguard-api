@@ -1,8 +1,9 @@
+from src.database.base import Base
+
 from geoalchemy2 import Geometry
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String
 
-class Upz(declarative_base()):
+class Upz(Base):
     __tablename__ = 'upz'
     CMIUUPLA = Column(String,primary_key=True)
     CMNOMUPLA = Column(String)
