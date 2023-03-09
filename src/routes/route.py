@@ -1,6 +1,5 @@
 from src.models.route import Route
 from src.riskmodel.routecrosses import route_cross_upz, route_cross_cat
-
 from fastapi import APIRouter
 from statistics import mean
 
@@ -27,6 +26,6 @@ async def get_routes(
         risk_upz_route = mean(map(lambda x: x[2],  res_upz[value]))
         risk_cat_route = mean(map(lambda x: x[2],  res_cat[value]))
         risk_route = (0.7 * risk_cat_route) + (0.3 * risk_upz_route)
-        response_json['routes'][value]['risk'] = risk_route
+        response_json['routes'][value]['risk'] = round(risk_route, 4)
     
     return response_json
